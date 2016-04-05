@@ -2,15 +2,14 @@
 #
 # Conway's game of Life
 
-$clear="\x1b\x5b\x48\x1b\x5b\x4a";
-$live=1;
-$dead=0;
+$clear="\x1b\x5b\x48\x1b\x5b\x4a";	# terminal escape sequence to clear screen
 $maxX = 80;
 $maxY = 60;
 
+# initialize the world
 for ($y=0;$y<$maxY;$y++) {
 	for ($x=0;$x<$maxX;$x++) {
-		$$e1[$x][$y] = int(rand(5)) ? $dead : $live;
+		$$e1[$x][$y] = int(rand(5)) ? 0 : 1;
 	}
 }
 
@@ -32,20 +31,13 @@ while (1) {
 			     $$e1[$l][$y] +                $$e1[$r][$y] +
 			     $$e1[$l][$d] + $$e1[$x][$d] + $$e1[$r][$d];
 
-			$state = $dead;
-			if ($n == 2) {
-				$state = $$e1[$x][$y];
-			}
-			if ($n == 3) {
-				$state = $live;
-			}
-			$$e2[$x][$y] = $state;
+			$$e2[$x][$y] = 0;				# default to dead since that's the most common state
+			$$e2[$x][$y] = 1 if $n == 3;	# a cell will stay alive or be born if 3 neighbors
+			$$e2[$x][$y] = $$e1[$x][$y] if $n == 2;	# state remains the same if 2 neighbors
 		}
 		print "\n";
 	}
 
 	# swap today and tomorrow
-	$tmp = $e1;
-	$e1 = $e2;
-	$e2 = $tmp;
+	$tmp = $e1; $e1 = $e2; $e2 = $tmp;
 }
