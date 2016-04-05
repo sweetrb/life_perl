@@ -11,17 +11,17 @@ noecho;			# don't echo keystrokes to screen
 
 # initialize the world 
 init:	# if user hits 'r' we jump back here and start over 
-for ($y=0;$y<$LINES;$y++) {
-	for ($x=0;$x<$COLS;$x++) {
+for $y (0 .. $LINES-1) {
+	for $x (0 .. $COLS-1) {
 		$$today[$x][$y] = int(rand(5)) ? 0 : 1;
 	}
 }
 
 while (1) {
-	for ($y=0;$y<$LINES;$y++) {
-		for ($x=0;$x<$COLS;$x++) {
+	for $y (0 .. $LINES-1) {
+		for $x (0 .. $COLS-1) {
 			# display current generation, but only if a cell has changed state
-			addstr($y, $x, $$today[$x][$y] ? 'O' : ' ') if $$tomorrow[$x][$y] != $$today[$x][$y];
+			addch($y, $x, $$today[$x][$y] ? 'O' : ' ') if $$tomorrow[$x][$y] != $$today[$x][$y];
 
 			# calculate next generation
 			# count neighbors
@@ -42,7 +42,7 @@ while (1) {
 	refresh;
 
 	# swap today and tomorrow
-	$tmp = $today; $today = $tomorrow; $tomorrow = $tmp;
+	($today, $tomorrow) = ($tomorrow, $today);
 
 	$ch = getch();
 	last if $ch eq 'q';
