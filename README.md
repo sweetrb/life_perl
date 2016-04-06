@@ -1,4 +1,4 @@
-# life.pl
-This is an example of Conway's Life game implemented in Perl
-This version uses the Curses.pm library and was developed on a Raspberry pi 2 system running raspian
+# Conway's game of life implemented in Perl
+This version uses the Curses.pm library and was developed on a Raspberry pi 2 running Raspian
+It has also been verified on OS X El Capitan 10.11.4 
 
