@@ -2,6 +2,8 @@
 #
 # Conway's game of Life
 # Note: This script is optimized for performance and tightness of code rather than readability
+#
+# R. Sweet	2016
 
 use Curses;
 
@@ -39,7 +41,7 @@ while (1) {
 			$$tomorrow[$x][$y] = $$today[$x][$y] if $n == 2;	# state remains the same if 2 neighbors
 		}
 	}
-	refresh;
+	refresh;	# tell curses to refresh (redraw) the screen
 
 	# swap today and tomorrow
 	($today, $tomorrow) = ($tomorrow, $today);
