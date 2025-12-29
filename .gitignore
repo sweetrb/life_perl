@@ -1,0 +1,20 @@
+# Editor backup files
+*.bak
+*.swp
+*~
+
+# Perl build artifacts
+blib/
+_build/
+Build
+Build.bat
+MYMETA.*
+Makefile.old
+*.tar.gz
+
+# Coverage and testing
+cover_db/
+.prove
+
+# OS files
+.DS_Store
