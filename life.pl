@@ -21,6 +21,7 @@ sub usage {
 }
 
 my $gen = 0;	# generations since the last (re)start
+my $density = 30;	# percent of cells initialized to alive
 
 initscr;		# curses calls to set up screen
 nodelay(1);		# tells curses not to wait for a keystroke on getch()
@@ -30,7 +31,7 @@ noecho;			# don't echo keystrokes to screen
 init:	# if user hits 'r' we jump back here and start over 
 for $y (0 .. $LINES-1) {
 	for $x (0 .. $COLS-1) {
-		$$today[$x][$y] = int(rand(5)) ? 0 : 1;
+		$$today[$x][$y] = int(rand(100)) < $density ? 1 : 0;
 	}
 }
 
