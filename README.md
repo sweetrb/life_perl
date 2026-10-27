@@ -25,7 +25,13 @@ As partner and CEO of Superior Technologies Research (<www.superiortech.io>) in 
 
 ```bash
 perl life.pl
+perl life.pl --restart 20    # reseed every 20 generations
 ```
+
+## Options
+
+- `-r`, `--restart <generations>` - restart with a new random pattern every
+  `<generations>` generations (0, the default, never restarts automatically)
 
 ## Controls
 

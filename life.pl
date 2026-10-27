@@ -6,6 +6,21 @@
 # R. Sweet	2016
 
 use Curses;
+use Getopt::Long;
+
+# command line options, parsed before initscr so errors are still visible
+my $restart_after = 0;	# generations between automatic restarts, 0 = never
+GetOptions('restart|r=i' => \$restart_after) or usage();
+usage() if $restart_after < 0 || @ARGV;
+
+sub usage {
+	print STDERR "Usage: $0 [-r | --restart <generations>]\n";
+	print STDERR "  -r, --restart <generations>  restart with a new random pattern\n";
+	print STDERR "                               every <generations> generations (0 = never)\n";
+	exit 1;
+}
+
+my $gen = 0;	# generations since the last (re)start
 
 initscr;		# curses calls to set up screen
 nodelay(1);		# tells curses not to wait for a keystroke on getch()
@@ -45,6 +60,12 @@ while (1) {
 
 	# swap today and tomorrow
 	($today, $tomorrow) = ($tomorrow, $today);
+
+	# automatic restart, the same jump the 'r' key makes
+	if ($restart_after && ++$gen >= $restart_after) {
+		$gen = 0;
+		goto init;
+	}
 
 	$ch = getch();
 	last if $ch eq 'q';
