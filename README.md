@@ -32,6 +32,8 @@ perl life.pl --restart 20    # reseed every 20 generations
 
 - `-r`, `--restart <generations>` - restart with a new random pattern every
   `<generations>` generations (0, the default, never restarts automatically)
+- `-g`, `--generations` - show the generation count in the pane (terminal) title
+- `-t`, `--time` - show the time per generation in the pane (terminal) title
 
 ## Controls
 
